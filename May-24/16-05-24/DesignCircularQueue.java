@@ -1,0 +1,68 @@
+package com.leetcode.May;
+//Problem Link: https://leetcode.com/problems/design-circular-queue/
+//O(1) O(1)
+public class DesignCircularQueue {
+	class MyCircularQueue {
+	    int size=0;
+	    int[] q;
+	    int front=0, end=0;
+	    public MyCircularQueue(int k) {
+	        this.q=new int[k];
+	        Arrays.fill(q,-1);
+	    }
+	    
+	    public boolean enQueue(int value) {
+	        if(isFull())
+	            return false;
+	        if(isEmpty()){
+	            front = 0;
+	            end = 0;
+	            q[end] = value;
+	            size++;
+	            return true;
+	        }
+	        end++;
+	        size++;
+	        end = end%q.length;
+	        q[end]=value;
+	        return true;
+	    }
+	    
+	    public boolean deQueue() {
+	        if(isEmpty())
+	            return false;
+	        q[front]=-1;
+	        front++;
+	        size--;
+	        front = front%q.length;
+	        return true;
+	    }
+	    
+	    public int Front() {
+	        return q[front];
+	    }
+	    
+	    public int Rear() {
+	        return q[end];
+	    }
+	    
+	    public boolean isEmpty() {
+	        return size == 0;
+	    }
+	    
+	    public boolean isFull() {
+	        return size == q.length;
+	    }
+	}
+
+	/**
+	 * Your MyCircularQueue object will be instantiated and called as such:
+	 * MyCircularQueue obj = new MyCircularQueue(k);
+	 * boolean param_1 = obj.enQueue(value);
+	 * boolean param_2 = obj.deQueue();
+	 * int param_3 = obj.Front();
+	 * int param_4 = obj.Rear();
+	 * boolean param_5 = obj.isEmpty();
+	 * boolean param_6 = obj.isFull();
+	 */
+}
